@@ -33,7 +33,12 @@ router.post(
 // get all support tickets
 router.get("/", (request, response) => {
 	const { params } = request;
-	console.log(params);
-	return response.status(201).send(params)
+	SupportTicketModel.find()
+		.then(data => {
+			response.send({ data, success: true });
+		})
+		.catch(err => {
+			response.send({ success: false, err })
+		})
 })
 export default router;

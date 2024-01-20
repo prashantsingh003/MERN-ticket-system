@@ -28,8 +28,9 @@ router.post(
 })
 
 // get all support agents
-router.get("/",(request,response)=>{
-	response.status(201).send("get all tickets")
+router.get("/",async (request,response)=>{
+	const allAgents=await SupportAgentModel.find()
+	response.send(allAgents);
 })
 
 export default router;
