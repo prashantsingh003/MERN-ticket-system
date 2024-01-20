@@ -1,26 +1,26 @@
 import mongoose from "mongoose";
 const SupportAgentSchema=new mongoose.Schema({
 	name:{
-		type:mongoose.Schema.Types.String,
+		type:String,
 		required:true,
 	},
 	email:{
-		type:mongoose.Schema.Types.String,
+		type:String,
 		required:true,
 		unique:true
 	},
 	phone:{
-		type:mongoose.Schema.Types.String,
+		type:String,
 	},
 	description:{
-		type:mongoose.Schema.Types.String,
+		type:String,
 	},
 	active:{
-		type:mongoose.Schema.Types.Boolean,
+		type:Boolean,
 		default: true
 	},
 	dateCreated:{
-		type:mongoose.Schema.Types.Date,
+		type:Date,
 		default: Date.now,
 	}
 })

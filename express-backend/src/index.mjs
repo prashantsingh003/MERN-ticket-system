@@ -1,9 +1,9 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import {query, validationResult,body, matchedData, checkSchema} from 'express-validator';
-
-import SupportAgentsRouter from './routes/SupportAgent.mjs';
-import SupportTicketsRouter from './routes/SupportAgent.mjs';
+import {query, validationResult, body, matchedData, checkSchema} from 'express-validator';
+// body("test").isMobilePhone({})
+import SupportAgentsRouter from './routes/SupportAgentsRoutes.mjs';
+import SupportTicketsRouter from './routes/SupportTicketsRoutes.mjs';
 
 const PORT = process.env.PORT || 3000;
 

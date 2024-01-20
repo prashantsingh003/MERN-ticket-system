@@ -24,10 +24,11 @@ const SupportTicketSchema=new mongoose.Schema({
 		enum:['New', 'Assigned', 'Resolved'],
 		default:'New'
 	},
-	assignedTo:{},
+	assignedTo:{
+		type:mongoose.Schema.Types.ObjectId
+	},
 	resolvedOn:{
-		type:Date,
-		required:false
+		type:Date
 	}
 });
 export const SupportTicketModel=mongoose.model('SuopportTicketModel',SupportTicketSchema);
