@@ -31,14 +31,15 @@ router.post(
 
 
 // get all support tickets
-router.get("/", (request, response) => {
+router.get("/", async (request, response) => {
 	const { params } = request;
-	SupportTicketModel.find()
-		.then(data => {
-			response.send({ data, success: true });
-		})
-		.catch(err => {
-			response.send({ success: false, err })
-		})
+	const results=await SupportTicketModel.find();
+	response.send(results);
+		// .then(data => {
+		// 	response.send({ data, success: true });
+		// })
+		// .catch(err => {
+		// 	response.send({ success: false, err })
+		// })
 })
 export default router;
