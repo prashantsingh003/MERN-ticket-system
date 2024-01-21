@@ -32,6 +32,7 @@ router.post(
 
 		// Handle No agents
 		const activeAgents=await SupportAgentModel.find({active:true});
+		let assignedAgentId=null;
 		if (activeAgents.length === 0) {
       return res.status(400).json({ error: 'No active support agents available' });
     }
@@ -42,8 +43,9 @@ router.post(
 		const lastAssignedIndex=indexStore.lastIndex;
 		const nextAgentIndex = (lastAssignedIndex + 1) % activeAgents.length;
 		const assignedAgent = activeAgents[nextAgentIndex];
+		assignedAgentId=assignedAgent._id
 
-		ticket={...ticket,assignedTo:assignedAgent._id}
+		ticket={...ticket,assignedTo:assignedAgentId,status:'Assigned'}
 
 		SupportTicketModel.create(ticket)
 			.then(async data => {
@@ -112,7 +114,14 @@ router.put(
 			})
 	}
 )
-
+router.put(
+	'/:id',async (request,response)=>{
+		const { params } = request;
+		const ticketId=new mongoose.Types.ObjectId(params.id);
+		const result = await User.findByIdAndDelete(ticketId);
+		response.status(204).send({success:true})
+	}
+)
 
 
 export default router;

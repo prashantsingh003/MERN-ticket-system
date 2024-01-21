@@ -22,8 +22,10 @@ router.post(
 		const verifiedValidations=validationResult(request);
 		if(!verifiedValidations.isEmpty()){
 			response.status(400).send({errors:verifiedValidations.array()});
+			return
 		}
 		const validSupportAgent=matchedData(request);
+		console.log(validSupportAgent)
 		SupportAgentModel.create(validSupportAgent)
 			.then(data => {
 				response.status(201).send({ data, success: true });
@@ -44,6 +46,5 @@ router.get("/:id",async (request,response)=>{
 	}
 	const tickets=await SupportTicketModel.find({assignedTo:agentId});
 	response.status(201).send({agent,tickets})
-
 })
 export default router;
