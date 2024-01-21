@@ -1,7 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import cors from 'cors';
 import {query, validationResult, body, matchedData, checkSchema} from 'express-validator';
-// body("test").isMobilePhone({})
+
 import SupportAgentsRouter from './routes/SupportAgentsRoutes.mjs';
 import SupportTicketsRouter from './routes/SupportTicketsRoutes.mjs';
 
@@ -12,6 +13,7 @@ const app=express();
 
 // Middlewares
 app.use(express.json());
+app.use(cors())
 
 // Routers
 app.use('/api/support-agents',SupportAgentsRouter)
