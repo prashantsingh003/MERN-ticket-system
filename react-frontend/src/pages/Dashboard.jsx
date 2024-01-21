@@ -9,6 +9,7 @@ export default function Dashboard() {
 
 	const [tickets, setTickets] = useState([]);
 	const [agents, setAgents] = useState([]);
+
 	const getTickets = () => {
 		axios.get(ticketsApi)
 			.then((res) => {

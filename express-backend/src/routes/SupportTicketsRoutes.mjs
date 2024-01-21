@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, response } from "express";
 import { checkSchema, matchedData, validationResult } from "express-validator";
 import { CreateSupportTicketValidationSchema } from "../validations/CreateSupportTicketValidationSchema.mjs";
 
@@ -109,19 +109,32 @@ router.put(
 				response.status(200).send({ success: true });
 			})
 			.catch(err => {
-				console.log(err)
 				response.status(400).send({ success: false });
 			})
 	}
 )
-router.put(
+router.delete(
 	'/:id',async (request,response)=>{
 		const { params } = request;
 		const ticketId=new mongoose.Types.ObjectId(params.id);
-		const result = await User.findByIdAndDelete(ticketId);
-		response.status(204).send({success:true})
+		const result = await SupportTicketModel.findByIdAndDelete(ticketId);
+		console.log(result)
+		if(result)
+			return response.status(200).send({success:true})
+		response.status(400).send({success:false})
 	}
 )
 
-
+router.get('/agent/:id',(request,response)=>{
+	const { params } = request;
+	const agentId=new mongoose.Types.ObjectId(params.id);
+	SupportTicketModel.find({assignedTo:agentId})
+	.then(res=>{
+		response.status(200).send(res)
+		console.log(res)
+	})
+	.catch(err => {
+		response.status(400).send({ success: false,error:err});
+	})
+})
 export default router;

@@ -1,12 +1,12 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import {query, validationResult, body, matchedData, checkSchema} from 'express-validator';
 
 import SupportAgentsRouter from './routes/SupportAgentsRoutes.mjs';
 import SupportTicketsRouter from './routes/SupportTicketsRoutes.mjs';
 
 const PORT = process.env.PORT || 3000;
+const mongoURL ="mongodb://0.0.0.0:27017/";
 
 console.log(process.env)
 const app=express();
@@ -19,9 +19,7 @@ app.use(cors())
 app.use('/api/support-agents',SupportAgentsRouter)
 app.use('/api/support-tickets',SupportTicketsRouter)
 
-mongoose.connect(
-	"mongodb://0.0.0.0:27017/"
-	)
+mongoose.connect(mongoURL)
 .then(res => {
 	console.log('mongoDB connected to ' + res.connection.host);
 })

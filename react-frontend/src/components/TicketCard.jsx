@@ -5,6 +5,15 @@ import { NavLink } from "react-router-dom";
 
 export default function TicketCard({ ticket }) {
 	const [agent, setAgent] = useState(null);
+
+	const getStatusColor = (status) => {
+		const res = {
+			Low: 'green',
+			Normal: 'blue',
+			High: 'red'
+		}
+		return res[status]
+	}
 	useEffect(() => {
 		axios.get(ticketsApi + ticket._id)
 			.then(res => {
@@ -19,18 +28,19 @@ export default function TicketCard({ ticket }) {
 					<div className="font-bold text-xl mb-2 flex justify-between">
 						{ticket.topic}
 						<NavLink
-							to={"/create-ticket/"+ticket._id}>
+							to={"/create-ticket/" + ticket._id}>
 							Edit
 						</NavLink>
-						</div>
+					</div>
 					<p className="text-gray-700 text-base">{ticket.description}</p>
 				</div>
 				<div className="flex justify-between items-center bg-gray-100 px-4 py-2">
 					<div className="flex space-x-2">
-						<span className="inline-block rounded-full px-3 py-1 text-sm font-semibold bg-blue-200 text-blue-700">
+						<span>Severity:
+						</span><span className={`inline-block rounded-full px-3 py-1 text-sm font-semibold bg-${getStatusColor(ticket.severity)}-200 text-${getStatusColor(ticket.severity)}-700`}>
 							{ticket.severity}
 						</span>
-						<span className="inline-block rounded-full px-3 py-1 text-sm font-semibold bg-green-200 text-green-700">
+						<span className={`inline-block rounded-full px-3 py-1 text-sm font-semibold  text-orange-500`}>
 							{ticket.status}
 						</span>
 					</div>

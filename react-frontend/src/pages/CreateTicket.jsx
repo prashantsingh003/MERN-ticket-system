@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { agentsApi, ticketsApi } from '../utils/url';
-import { Navigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const CreateTicket = () => {
 	const { id } = useParams();
+	const navigate = useNavigate();
 	const [agents, setAgents] = useState([]);
 	const [isEditable, setIsEditable] = useState(false);
 	const initialFormData = {
@@ -53,7 +54,7 @@ const CreateTicket = () => {
 			console.log(res)
 			setMessage({msg:"created successfully", success: true })
 			setTimeout(() => {
-				Navigate('/')
+				navigate('/')
 			}, 1000);
 		})
 			.catch(err => {
@@ -66,7 +67,7 @@ const CreateTicket = () => {
 			console.log(res)
 			setMessage({msg:"updated successfully", success: true })
 			setTimeout(() => {
-				Navigate('/')
+				navigate('/')
 			}, 1000);
 		})
 			.catch(err => {
@@ -75,12 +76,13 @@ const CreateTicket = () => {
 			})
 	}
 	const deleteTicket = () => {
-		axios.delete(ticketsApi / +id).then(res => {
-			console.log(res)
-			setMessage({msg:"deleted successfully", success: true })
+		if(confirm("Confirm delete"))
+		axios.delete(ticketsApi+id).then(res => {
 			setTimeout(() => {
-				Navigate('/')
-			}, 1000);
+				navigate('/')
+			}, 500);
+			setMessage({msg:"deleted successfully", success: true })
+			setFormData(initialFormData)
 		})
 			.catch(err => {
 				console.log(err)
@@ -200,12 +202,18 @@ const CreateTicket = () => {
 						</div>
 						: null
 				}
-				<div className="mt-6">
+				<div className="mt-6 flex justify-between">
 					<button
 						type="submit"
 						className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
 					>
 						{isEditable ? 'Update' : 'Create'} Ticket
+					</button>
+					<button
+						onClick={deleteTicket}
+						className="py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300"
+					>
+						Delete Ticket
 					</button>
 				</div>
 			</form>
