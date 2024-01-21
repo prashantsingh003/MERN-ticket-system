@@ -18,8 +18,7 @@ app.use('/api/support-agents',SupportAgentsRouter)
 app.use('/api/support-tickets',SupportTicketsRouter)
 
 mongoose.connect(
-	"mongodb://0.0.0.0:27017/", 
-	{ useNewUrlParser: true, useUnifiedTopology: true }
+	"mongodb://0.0.0.0:27017/"
 	)
 .then(res => {
 	console.log('mongoDB connected to ' + res.connection.host);

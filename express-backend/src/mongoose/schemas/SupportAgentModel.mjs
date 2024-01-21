@@ -19,6 +19,10 @@ const SupportAgentSchema=new mongoose.Schema({
 		type:Boolean,
 		default: true
 	},
+	// lastAssigned:{
+	// 	type:Boolean,
+	// 	default:false
+	// },
 	dateCreated:{
 		type:Date,
 		default: Date.now,

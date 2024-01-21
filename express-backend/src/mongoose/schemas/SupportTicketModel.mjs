@@ -25,7 +25,8 @@ const SupportTicketSchema=new mongoose.Schema({
 		default:'New'
 	},
 	assignedTo:{
-		type:mongoose.Schema.Types.ObjectId
+		type:mongoose.Schema.Types.ObjectId,
+		default:null
 	},
 	resolvedOn:{
 		type:Date
